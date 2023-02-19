@@ -22,6 +22,48 @@ function App() {
       user: "bot1",
       time: "12:10 AM",
     },
+    {
+      id: 4,
+      text: "Duis congue, est vel vestibulum sollicitudin, neque elit convallis massa, quis commodo dui nibh in justo.",
+      user: "bot2",
+      time: "12:15 AM",
+    },
+    {
+      id: 5,
+      text: "Donec interdum, magna at tristique blandit, velit ex rutrum mauris, eu consequat tortor nulla eget nibh.",
+      user: "bot1",
+      time: "12:20 AM",
+    },
+    {
+      id: 6,
+      text: "Fusce dictum tortor enim, in placerat sem maximus vel.",
+      user: "bot2",
+      time: "12:25 AM",
+    },
+    {
+      id: 7,
+      text: "Phasellus ut diam ligula. Mauris lobortis nibh eu efficitur feugiat.",
+      user: "bot1",
+      time: "12:30 AM",
+    },
+    // {
+    //   id: 8,
+    //   text: "Proin ac risus quis metus gravida interdum vel at odio.",
+    //   user: "bot2",
+    //   time: "12:35 AM",
+    // },
+    // {
+    //   id: 9,
+    //   text: "Vestibulum vel leo eget enim euismod venenatis in non nulla.",
+    //   user: "bot1",
+    //   time: "12:40 AM",
+    // },
+    // {
+    //   id: 10,
+    //   text: "Nam dignissim elit eu suscipit dignissim. Nam ac hendrerit ex, vel ullamcorper dolor.",
+    //   user: "bot2",
+    //   time: "12:45 AM",
+    // },
   ]);
 
   const handleInputChange = (e) => {
@@ -35,6 +77,8 @@ function App() {
 
   return (
     <div className="container">
+      <h1>Voxion</h1>
+      <p>A text-to-speech communications tool that interacts with ChatGPT.</p>
       <div className="chat-container">
         {messages.map((message) => (
           <div

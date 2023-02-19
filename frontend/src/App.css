@@ -11,6 +11,17 @@ body {
   color: #333;
 }
 
+h1 {
+  padding: 1rem;
+  font-size: 4rem;
+}
+
+p {
+  padding-top: 0.25rem;
+  font-size: 0.7rem;
+  text-decoration-line: underline;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -27,6 +38,8 @@ body {
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
+  outline: solid;
+  outline-width: thin;
 }
 
 .chat-message {
@@ -63,7 +76,7 @@ body {
 }
 
 form {
-  transform: scale(1.2);
+  transform: scale(1.5);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,10 +89,14 @@ label {
   margin-bottom: 0.5rem;
 }
 
-/* textarea,
 button {
-  width: 100%;
-} */
+  padding: 0.2rem;
+}
+
+textarea {
+  width: 200%;
+  margin-left: -50%;
+}
 
 .form-group {
   width: 100%;
