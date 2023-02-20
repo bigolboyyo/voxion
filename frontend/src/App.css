@@ -5,15 +5,11 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: monospace;
   font-size: 1rem;
   line-height: 1.5rem;
-  color: #333;
-}
-
-h1 {
-  padding: 1rem;
-  font-size: 4rem;
+  color: #eee;
+  background-color: #111;
 }
 
 p {
@@ -31,41 +27,74 @@ p {
 }
 
 .chat-container {
+  height: calc(100vh - 250px);
+  overflow-y: scroll;
   width: 80%;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 1rem auto;
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  justify-content: center;
-  outline: solid;
-  outline-width: thin;
+  justify-content: flex-start;
+  padding: 0.5rem; /* Reduce padding to avoid cutting the first message */
+  box-sizing: border-box;
+  background-color: #222;
+  border-radius: 5px;
+}
+
+/* styles for screens smaller than 768px */
+@media (max-width: 767px) {
+  .chat-container {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* styles for screens smaller than 480px */
+@media (max-width: 479px) {
+  .chat-container {
+    font-size: 0.8em;
+  }
+}
+
+.chat-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chat-container::-webkit-scrollbar-track {
+  background-color: #333;
+  border-radius: 10px;
+}
+
+.chat-container::-webkit-scrollbar-thumb {
+  background-color: #5c5c5c;
+  border-radius: 10px;
 }
 
 .chat-message {
-  margin: 0.5rem;
-  padding: 0.5rem;
+  margin-top: 0.5rem; /* Add gap between messages */
   border-radius: 5px;
-  background-color: #f1f1f1;
+  background-color: #444;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  color: #333;
+  color: #eee;
+  padding: 0.5rem;
 }
 
 .chat-message.left {
   align-self: flex-start;
-  background-color: #c7dcff;
+  background-color: #157a33;
 }
 
 .chat-message.right {
   align-self: flex-end;
-  background-color: #c5ffb8;
+  background-color: #0077c2;
 }
 
 .chat-message-text {
   font-size: 1rem;
-  margin-bottom: 0.5rem;
 }
 
 .chat-message-meta {
@@ -76,7 +105,7 @@ p {
 }
 
 form {
-  transform: scale(1.5);
+  /* transform: scale(1.3); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,18 +113,26 @@ form {
   margin: 2rem;
 }
 
-label {
+/* label {
   display: block;
   margin-bottom: 0.5rem;
-}
+} */
 
 button {
   padding: 0.2rem;
+  background-color: #0077c2;
+  color: #eee;
+  border: none;
+  border-radius: 5px;
 }
 
 textarea {
   width: 200%;
   margin-left: -50%;
+}
+
+textarea::placeholder {
+  text-align: center;
 }
 
 .form-group {
@@ -105,4 +142,9 @@ textarea {
 
 .form-control {
   resize: none;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  color: #eee;
+  padding: 0.5rem;
 }

@@ -1,70 +1,138 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import Header from "./components/Header";
 import "./App.css";
 
 function App() {
+  const currentTime = new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   const [inputText, setInputText] = useState("");
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       user: "bot1",
-      time: "12:01 AM",
+      text: "Welcome to the Phone Center! How can we assist you today?",
+      time: currentTime,
     },
     {
       id: 2,
-      text: "Nullam euismod dolor ut imperdiet iaculis.",
       user: "bot2",
-      time: "12:05 AM",
+      text: "Hi, I have a problem with my phone line.",
+      time: currentTime,
     },
     {
       id: 3,
-      text: "Sed at nibh turpis. Ut auctor, nunc vitae interdum blandit, ipsum sapien blandit magna, eu finibus risus quam ut risus.",
       user: "bot1",
-      time: "12:10 AM",
+      text: "Sure, what seems to be the problem?",
+      time: currentTime,
     },
     {
       id: 4,
-      text: "Duis congue, est vel vestibulum sollicitudin, neque elit convallis massa, quis commodo dui nibh in justo.",
       user: "bot2",
-      time: "12:15 AM",
+      text: "I can't seem to get a dial tone, and there's a strange buzzing sound on the line.",
+      time: currentTime,
     },
     {
       id: 5,
-      text: "Donec interdum, magna at tristique blandit, velit ex rutrum mauris, eu consequat tortor nulla eget nibh.",
       user: "bot1",
-      time: "12:20 AM",
+      text: "Oh, that doesn't sound good. Let's try some troubleshooting steps.",
+      time: currentTime,
     },
     {
       id: 6,
-      text: "Fusce dictum tortor enim, in placerat sem maximus vel.",
-      user: "bot2",
-      time: "12:25 AM",
+      user: "bot1",
+      text: "First, can you try unplugging the phone from the wall and plugging it back in?",
+      time: currentTime,
     },
     {
       id: 7,
-      text: "Phasellus ut diam ligula. Mauris lobortis nibh eu efficitur feugiat.",
-      user: "bot1",
-      time: "12:30 AM",
+      user: "bot2",
+      text: "I've already tried that, and it didn't help.",
+      time: currentTime,
     },
-    // {
-    //   id: 8,
-    //   text: "Proin ac risus quis metus gravida interdum vel at odio.",
-    //   user: "bot2",
-    //   time: "12:35 AM",
-    // },
-    // {
-    //   id: 9,
-    //   text: "Vestibulum vel leo eget enim euismod venenatis in non nulla.",
-    //   user: "bot1",
-    //   time: "12:40 AM",
-    // },
-    // {
-    //   id: 10,
-    //   text: "Nam dignissim elit eu suscipit dignissim. Nam ac hendrerit ex, vel ullamcorper dolor.",
-    //   user: "bot2",
-    //   time: "12:45 AM",
-    // },
+    {
+      id: 8,
+      user: "bot1",
+      text: "Okay, next let me check if there are any reported outages in your area.",
+      time: currentTime,
+    },
+    {
+      id: 9,
+      user: "bot1",
+      text: "Can you please provide your phone number so I can check our system?",
+      time: currentTime,
+    },
+    {
+      id: 10,
+      user: "bot2",
+      text: "Sure, it is 555-555-1234.",
+      time: currentTime,
+    },
+    {
+      id: 11,
+      user: "bot1",
+      text: "Thank you. It looks like there is an outage in your area affecting phone service. Our technicians are aware of the issue and are working to resolve it.",
+      time: currentTime,
+    },
+    {
+      id: 12,
+      user: "bot2",
+      text: "How long will it take to fix?",
+      time: currentTime,
+    },
+    {
+      id: 13,
+      user: "bot1",
+      text: "We estimate that service will be restored within the next 2 hours. In the meantime, please try to keep your phone line clear as our technicians work to resolve the issue.",
+      time: currentTime,
+    },
+    {
+      id: 14,
+      user: "bot1",
+      text: "That sounds pretty intense. Do you have a lot of calls coming in?",
+      time: currentTime,
+    },
+    {
+      id: 15,
+      user: "bot2",
+      text: "Yeah, we get quite a few calls. Most of them are people looking for missing loved ones or trying to find a safe place to stay. It can be tough, but it feels good to be able to help them.",
+      time: currentTime,
+    },
+    {
+      id: 16,
+      user: "bot1",
+      text: "I can imagine. How do you handle all the stress?",
+      time: currentTime,
+    },
+    {
+      id: 17,
+      user: "bot2",
+      text: "Honestly, I try to stay focused on helping the people who call in. It can be overwhelming at times, but knowing that we're making a difference makes it all worthwhile.",
+      time: currentTime,
+    },
+    {
+      id: 18,
+      user: "bot1",
+      text: "That's a good attitude to have. Keep up the good work!",
+      time: currentTime,
+    },
+    {
+      id: 19,
+      user: "bot2",
+      text: "Thanks, will do! Take care.",
+      time: currentTime,
+    },
+    {
+      id: 20,
+      user: "bot1",
+      text: "You too. Bye!",
+      time: currentTime,
+    },
   ]);
+
+  const chatContainerRef = useRef();
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
@@ -75,42 +143,48 @@ function App() {
     console.log(inputText); // replace with API call to backend
   };
 
+  useEffect(() => {
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [messages]);
+
   return (
-    <div className="container">
-      <h1>Voxion</h1>
-      <p>A text-to-speech communications tool that interacts with ChatGPT.</p>
-      <div className="chat-container">
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`chat-message ${
-              message.user === "bot1" ? "left" : "right"
-            }`}
-          >
-            <div className="chat-message-text">{message.text}</div>
-            <div className="chat-message-meta">
-              {message.user} - {message.time}
+    <>
+      <Header />
+      <div className="container">
+        <div className="chat-container" ref={chatContainerRef}>
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={`chat-message ${
+                message.user === "bot1" ? "left" : "right"
+              }`}
+            >
+              <div className="chat-message-text">{message.text}</div>
+              <div className="chat-message-meta">
+                {message.user} - {message.time}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="inputText">Enter your text:</label>
-          <textarea
-            className="form-control"
-            id="inputText"
-            rows="3"
-            value={inputText}
-            onChange={handleInputChange}
-            required
-          />
+          ))}
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
-    </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            {/* <label htmlFor="inputText">Enter your text:</label> */}
+            <textarea
+              className="form-control"
+              id="inputText"
+              rows="2"
+              value={inputText}
+              onChange={handleInputChange}
+              placeholder="Enter your text"
+              required
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </form>
+      </div>
+    </>
   );
 }
 
