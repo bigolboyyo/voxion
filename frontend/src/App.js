@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import "./App.css";
+import ChatContainer from "./components/ChatContainer/ChatContainer";
+import SubmitForm from "./components/SubmitForm/SubmitForm";
 
 function App() {
   const currentTime = new Date().toLocaleTimeString([], {
@@ -8,7 +10,6 @@ function App() {
     minute: "2-digit",
   });
 
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [inputText, setInputText] = useState("");
   const [messages, setMessages] = useState([
     {
@@ -151,10 +152,6 @@ function App() {
     setInputText("");
   };
 
-  const toggleChat = () => {
-    setIsChatOpen(!isChatOpen);
-  };
-
   useEffect(() => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
   }, [messages]);
@@ -162,40 +159,15 @@ function App() {
   return (
     <div className="container">
       <Header />
+      <ChatContainer chatContainerRef={chatContainerRef} messages={messages} />
 
-      <div className="chat-container" ref={chatContainerRef}>
-        {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`chat-message ${
-              message.user === "bot1" ? "left" : "right"
-            }`}
-          >
-            <div className="chat-message-text">{message.text}</div>
-            <div className="chat-message-meta">
-              {message.user} - {message.time}
-            </div>
-          </div>
-        ))}
-      </div>
       <div className="radio-wave"></div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <textarea
-            className="form-control"
-            id="inputText"
-            rows="3"
-            value={inputText}
-            onChange={handleInputChange}
-            placeholder="Enter your text"
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
+      <SubmitForm
+        handleSubmit={handleSubmit}
+        inputText={inputText}
+        handleInputChange={handleInputChange}
+      />
     </div>
   );
 }
