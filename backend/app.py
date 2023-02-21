@@ -1,4 +1,9 @@
+import os
 from flask import Flask, request, jsonify
+from dotenv import load_dotenv
+load_dotenv()
+
+api_key = os.environ.get('OPENAI_API_KEY')
 
 app = Flask(__name__)
 
