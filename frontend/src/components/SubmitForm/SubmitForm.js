@@ -7,7 +7,7 @@ function SubmitForm({ handleSubmit, inputText, handleInputChange }) {
         <textarea
           className="form-control"
           id="inputText"
-          rows="4"
+          rows="3"
           value={inputText}
           onChange={handleInputChange}
           placeholder="Enter your text"

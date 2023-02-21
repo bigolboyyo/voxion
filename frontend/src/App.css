@@ -5,6 +5,7 @@
 }
 
 body {
+  overflow: hidden;
   font-family: monospace;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -211,5 +212,55 @@ textarea::placeholder {
   }
   100% {
     box-shadow: 0 0 0 0 rgba(0, 122, 255, 0);
+  }
+}
+
+/* styles for devices with screens larger than 768px */
+@media (min-width: 768px) {
+  /* styles for larger devices here */
+  *,
+  body {
+    font-size: 18px;
+    padding: 24px;
+  }
+}
+
+/* styles for devices with screens between 576px and 767px */
+@media (max-width: 767px) {
+  /* styles for medium devices here */
+  *,
+  body {
+    font-size: 16px;
+    padding: 20px;
+  }
+}
+
+/* styles for devices with screens between 481px and 575px */
+@media (max-width: 575px) {
+  /* styles for small devices here */
+  *,
+  body {
+    font-size: 14px;
+    padding: 16px;
+  }
+}
+
+/* styles for devices with screens between 376px and 480px */
+@media (max-width: 480px) {
+  /* styles for extra-small devices here */
+  *,
+  body {
+    font-size: 12px;
+    padding: 12px;
+  }
+}
+
+/* styles for devices with screens up to 375px */
+@media (max-width: 375px) {
+  /* styles for the smallest devices here */
+  *,
+  body {
+    font-size: 10px;
+    padding: 8px;
   }
 }
