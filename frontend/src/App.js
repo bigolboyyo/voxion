@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Header from "./components/Header/Header";
 import "./App.css";
 import ChatContainer from "./components/ChatContainer/ChatContainer";
+
 import SubmitForm from "./components/SubmitForm/SubmitForm";
 import SpeechRecognitionButton from "./components/SpeechRecognitionButton/SpeechRecognitionButton";
 
@@ -13,12 +14,18 @@ function App() {
     minute: "2-digit",
   });
 
+  const synth = useRef(window.speechSynthesis);
+  const chatContainerRef = useRef();
+
   // Define state variables and refs
   const [inputText, setInputText] = useState("");
   const [messages, setMessages] = useState([]);
   const [isFetching, setIsFetching] = useState(false); // new state variable
-  const synth = useRef(window.speechSynthesis);
-  const chatContainerRef = useRef();
+  const [currentComponent, setCurrentComponent] = useState(true);
+
+  const toggleComponent = () => {
+    setCurrentComponent(!currentComponent);
+  };
 
   // Handle input change in the submit form
   const handleInputChange = (e) => {
@@ -78,19 +85,21 @@ function App() {
   return (
     <div className="container">
       {/* Display app header */}
-      <Header />
+      <Header toggleComponent={toggleComponent} />
       {/* Display chat messages */}
       <ChatContainer chatContainerRef={chatContainerRef} messages={messages} />
       {/* Add waveform animation to indicate bot is speaking */}
       <div className="radio-wave"></div>
       {/* Display form for submitting messages */}
-      <SpeechRecognitionButton />
-      <SubmitForm
-        handleSubmit={handleSubmit}
-        inputText={inputText}
-        handleInputChange={handleInputChange}
-        isFetching={isFetching} // pass the isFetching state variable to SubmitForm component
-      />
+      {currentComponent ? (
+        <SpeechRecognitionButton />
+      ) : (
+        <SubmitForm
+          isFetching={isFetching}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+        />
+      )}
     </div>
   );
 }

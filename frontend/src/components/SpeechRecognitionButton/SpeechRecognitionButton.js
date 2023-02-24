@@ -99,6 +99,7 @@ const SpeechRecognitionButton = () => {
               alignItems: "center",
               justifyContent: "space-around",
               width: "50%",
+              margin: "2rem",
             }}
           >
             <button onClick={handleDelete}>Delete</button>

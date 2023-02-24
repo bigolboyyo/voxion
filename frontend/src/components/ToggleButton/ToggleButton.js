@@ -1,16 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
-const ToggleButton = ({ component1, component2 }) => {
-  const [isComponent1, setIsComponent1] = useState(true);
-
-  const handleClick = () => {
-    setIsComponent1(!isComponent1);
-  };
-
+const ToggleButton = ({ toggleComponent }) => {
   return (
     <>
       <button
-        onClick={handleClick}
+        onClick={toggleComponent}
         style={{
           backgroundColor: "#1E1E1E",
           color: "#F8F8F8",
@@ -21,10 +15,7 @@ const ToggleButton = ({ component1, component2 }) => {
           cursor: "pointer",
           width: "6%",
         }}
-      >
-        {isComponent1 ? "Textbox" : "Recorder"}
-      </button>
-      {isComponent1 ? component1 : component2}
+      ></button>
     </>
   );
 };
