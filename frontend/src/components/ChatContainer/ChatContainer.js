@@ -7,7 +7,7 @@ function ChatContainer({ chatContainerRef, messages }) {
         <div
           key={message.id}
           className={`chat-message ${
-            message.user === "bot1" ? "left" : "right"
+            message.user === "human" ? "left" : "right"
           }`}
         >
           <div className="chat-message-text">{message.text}</div>

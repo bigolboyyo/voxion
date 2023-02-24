@@ -13,6 +13,11 @@ body {
   background-color: #111;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
 p {
   padding-top: 0.25rem;
   font-size: 0.7rem;
