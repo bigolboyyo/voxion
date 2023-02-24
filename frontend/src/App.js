@@ -1,9 +1,8 @@
 // Import necessary libraries and components
 import React, { useState, useEffect, useRef } from "react";
-import Header from "./components/Header/Header";
 import "./App.css";
+import Header from "./components/Header/Header";
 import ChatContainer from "./components/ChatContainer/ChatContainer";
-
 import SubmitForm from "./components/SubmitForm/SubmitForm";
 import SpeechRecognitionButton from "./components/SpeechRecognitionButton/SpeechRecognitionButton";
 
@@ -85,14 +84,22 @@ function App() {
   return (
     <div className="container">
       {/* Display app header */}
-      <Header toggleComponent={toggleComponent} />
+      <Header
+        toggleComponent={toggleComponent}
+        currentComponent={currentComponent}
+      />
       {/* Display chat messages */}
       <ChatContainer chatContainerRef={chatContainerRef} messages={messages} />
       {/* Add waveform animation to indicate bot is speaking */}
       <div className="radio-wave"></div>
       {/* Display form for submitting messages */}
       {currentComponent ? (
-        <SpeechRecognitionButton />
+        <SpeechRecognitionButton
+          fetchOpenAi={fetchOpenAi}
+          messages={messages}
+          setMessages={setMessages}
+          time={currentTime}
+        />
       ) : (
         <SubmitForm
           isFetching={isFetching}

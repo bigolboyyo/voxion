@@ -1,14 +1,17 @@
 import React from "react";
-import ThemeButton from "../ThemeButton/ThemeButton";
+import SettingsButton from "../SettingsButton/SettingsButton";
 import "./Header.css";
 import ToggleButton from "../ToggleButton/ToggleButton";
 
-function Header({ toggleComponent }) {
+function Header({ toggleComponent, currentComponent }) {
   return (
     <div className="header">
-      <ThemeButton />
+      <SettingsButton />
       <h1>Voxion</h1>
-      <ToggleButton toggleComponent={toggleComponent} />
+      <ToggleButton
+        toggleComponent={toggleComponent}
+        currentComponent={currentComponent}
+      />
     </div>
   );
 }

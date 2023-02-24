@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
-const SpeechRecognitionButton = () => {
+const SpeechRecognitionButton = ({
+  fetchOpenAi,
+  messages,
+  setMessages,
+  time,
+}) => {
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -8,8 +13,12 @@ const SpeechRecognitionButton = () => {
 
   const recognition = new window.webkitSpeechRecognition();
   recognition.lang = "en-US";
-  recognition.interimResults = false;
+  recognition.interimResults = true;
   recognition.maxAlternatives = 1;
+
+  const grammarList = new window.webkitSpeechGrammarList();
+  grammarList.addFromString("[, . ! ?]", 1); // add punctuation to the grammar
+  recognition.grammar = grammarList;
 
   recognition.onstart = () => {
     setIsRecording(true);
@@ -39,9 +48,23 @@ const SpeechRecognitionButton = () => {
     }
   };
 
-  const handleSend = () => {
+  const postAudioMsg = (transcript) => {
     console.log(transcript);
-    // send the transcript to the backend
+
+    const audioMsg = {
+      id: messages.length + 1,
+      text: transcript,
+      user: "human",
+      time: time,
+    };
+    setMessages((messages) => [...messages, audioMsg]);
+  };
+
+  const handleSend = async () => {
+    postAudioMsg(transcript);
+
+    await fetchOpenAi(transcript);
+
     setTranscript("");
     setShowModal(false);
   };
@@ -67,6 +90,7 @@ const SpeechRecognitionButton = () => {
           outline: "none",
           boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.25)",
           cursor: "pointer",
+          margin: "7.1rem",
         }}
       >
         <svg
